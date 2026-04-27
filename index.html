@@ -21,8 +21,6 @@ body{
     radial-gradient(ellipse at 20% 20%,rgba(212,184,150,0.25) 0%,transparent 55%),
     radial-gradient(ellipse at 80% 80%,rgba(201,150,122,0.15) 0%,transparent 50%);
 }
-
-/* TOAST */
 .toast{
   position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
   background:var(--espresso);color:var(--cream);padding:10px 24px;border-radius:2px;
@@ -30,8 +28,6 @@ body{
   z-index:300;white-space:nowrap;pointer-events:none;
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* LOADER */
 .loader{text-align:center;padding:80px 24px}
 .loader-dot{
   display:inline-block;width:8px;height:8px;background:var(--tan);
@@ -41,8 +37,7 @@ body{
 .loader-dot:nth-child(3){animation-delay:0.4s}
 @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}}
 
-/* HEADER */
-header{text-align:center;padding:56px 24px 32px;position:relative}
+header{text-align:center;padding:56px 24px 32px}
 .header-eyebrow{
   font-family:'Dancing Script',cursive;font-size:1.1rem;color:var(--dusty-rose);
   letter-spacing:0.05em;margin-bottom:10px;
@@ -70,14 +65,12 @@ h1 em{font-style:italic;color:var(--dusty-rose)}
 .header-edit-hint:hover{color:var(--dusty-rose)}
 body.admin-mode .header-edit-hint{display:block}
 
-/* CATEGORY TABS */
+/* TABS */
 .tabs-wrap{
   max-width:1200px;margin:0 auto 36px;padding:0 28px;
   opacity:0;animation:fadeUp 0.7s ease forwards 0.6s;
 }
-.tabs{
-  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
-}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .tab{
   background:none;border:1px solid var(--parchment);color:var(--mocha);
   padding:8px 18px;font-family:'Lato',sans-serif;font-size:0.78rem;
@@ -90,15 +83,14 @@ body.admin-mode .header-edit-hint{display:block}
   background:none;border:1px dashed var(--tan);color:var(--tan);
   padding:8px 14px;font-size:0.78rem;letter-spacing:0.08em;
   cursor:pointer;border-radius:2px;transition:all 0.2s;display:none;
+  align-items:center;gap:4px;
 }
 .tab-add:hover{border-color:var(--dusty-rose);color:var(--dusty-rose)}
-body.admin-mode .tab-add{display:inline-flex;align-items:center;gap:4px}
+body.admin-mode .tab-add{display:inline-flex}
 
 /* ADMIN TOOLBAR */
-.admin-toolbar{
-  display:none;max-width:1200px;margin:0 auto 24px;padding:0 28px;
-}
-body.admin-mode .admin-toolbar{display:flex;gap:10px;flex-wrap:wrap}
+.admin-toolbar{display:none;max-width:1200px;margin:0 auto 24px;padding:0 28px}
+body.admin-mode .admin-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .add-btn{
   background:var(--espresso);color:var(--cream);border:none;
   padding:11px 28px;font-family:'Lato',sans-serif;font-size:0.78rem;
@@ -108,13 +100,54 @@ body.admin-mode .admin-toolbar{display:flex;gap:10px;flex-wrap:wrap}
 .add-btn:hover{background:var(--mocha)}
 .reorder-hint{
   font-size:0.75rem;color:var(--sand);letter-spacing:0.06em;
-  display:flex;align-items:center;gap:6px;padding:0 4px;
+  display:flex;align-items:center;gap:6px;
 }
+
+/* CATEGORY SECTIONS */
+.category-section{
+  margin-bottom:48px;
+  transition:opacity 0.2s;
+}
+.category-section.dragging-cat{opacity:0.4}
+.category-section.drag-over-cat{
+  border-top:3px solid var(--dusty-rose);
+  padding-top:6px;
+}
+.category-header{
+  max-width:1200px;margin:0 auto 20px;padding:0 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.category-title-wrap{display:flex;align-items:center;gap:10px}
+.cat-drag-handle{
+  display:none;cursor:grab;font-size:1.1rem;color:var(--tan);
+  padding:4px;transition:color 0.15s;user-select:none;
+}
+.cat-drag-handle:hover{color:var(--dusty-rose)}
+body.admin-mode .cat-drag-handle{display:block}
+.category-title{
+  font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;
+  color:var(--espresso);display:flex;align-items:center;gap:10px;
+}
+.category-title em{font-style:italic;color:var(--dusty-rose)}
+.category-count{
+  font-family:'Lato',sans-serif;font-size:0.72rem;color:var(--sand);
+  letter-spacing:0.1em;text-transform:uppercase;font-weight:400;
+}
+.category-actions{display:none;gap:6px}
+body.admin-mode .category-actions{display:flex}
+.cat-btn{
+  background:none;border:1px solid var(--parchment);color:var(--sand);
+  padding:5px 12px;border-radius:2px;cursor:pointer;font-size:0.72rem;
+  letter-spacing:0.08em;text-transform:uppercase;transition:all 0.15s;
+  font-family:'Lato',sans-serif;
+}
+.cat-btn:hover{border-color:var(--mocha);color:var(--mocha)}
+.cat-btn.del:hover{border-color:#c0685a;color:#c0685a}
 
 /* GRID */
 .grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
-  gap:24px;max-width:1200px;margin:0 auto;padding:0 28px 100px;
+  gap:24px;max-width:1200px;margin:0 auto;padding:0 28px 8px;
 }
 
 /* CARD */
@@ -122,8 +155,7 @@ body.admin-mode .admin-toolbar{display:flex;gap:10px;flex-wrap:wrap}
   background:var(--warm-white);border-radius:4px;overflow:hidden;
   box-shadow:0 2px 12px var(--shadow),0 0 0 1px rgba(196,168,130,0.15);
   transition:transform 0.25s ease,box-shadow 0.25s ease,opacity 0.2s;
-  opacity:0;animation:fadeUp 0.6s ease forwards;
-  position:relative;
+  opacity:0;animation:fadeUp 0.6s ease forwards;position:relative;
 }
 .card:hover{
   transform:translateY(-4px);
@@ -135,9 +167,8 @@ body.admin-mode .admin-toolbar{display:flex;gap:10px;flex-wrap:wrap}
   background:rgba(74,55,40,0.55);display:flex;align-items:center;justify-content:center;
   font-family:'Dancing Script',cursive;font-size:1.8rem;color:#fff;letter-spacing:0.04em;
 }
-/* drag state */
-.card.dragging{opacity:0.4;transform:scale(0.97)}
-.card.drag-over{border:2px dashed var(--dusty-rose)}
+.card.dragging-item{opacity:0.35;transform:scale(0.97)}
+.card.drag-over-item{outline:2px dashed var(--dusty-rose);outline-offset:2px}
 
 .card-img-wrap{position:relative;width:100%;height:210px;overflow:hidden;background:var(--parchment)}
 .card-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease}
@@ -152,12 +183,11 @@ body.admin-mode .admin-toolbar{display:flex;gap:10px;flex-wrap:wrap}
   font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;
   padding:3px 9px;border-radius:2px;
 }
-/* drag handle (admin only) */
 .drag-handle{
-  position:absolute;top:10px;right:10px;background:rgba(74,55,40,0.6);
+  position:absolute;top:10px;right:10px;background:rgba(74,55,40,0.55);
   color:#fff;width:26px;height:26px;border-radius:2px;
   display:none;align-items:center;justify-content:center;
-  font-size:0.75rem;cursor:grab;z-index:2;
+  font-size:0.8rem;cursor:grab;z-index:2;
 }
 body.admin-mode .drag-handle{display:flex}
 
@@ -188,7 +218,6 @@ body.admin-mode .drag-handle{display:flex}
 }
 .claim-label input:checked+.checkmark{background:var(--sage);border-color:var(--sage)}
 .claim-label input:checked+.checkmark::after{content:'✓';font-size:11px;color:#fff}
-
 .card-actions{display:flex;gap:6px}
 .action-btn{
   background:none;border:1px solid var(--parchment);color:var(--sand);
@@ -198,39 +227,11 @@ body.admin-mode .drag-handle{display:flex}
 .action-btn:hover{border-color:var(--mocha);color:var(--mocha)}
 .action-btn.del:hover{border-color:#c0685a;color:#c0685a}
 
-/* CATEGORY HEADER */
-.category-section{margin-bottom:48px}
-.category-header{
-  max-width:1200px;margin:0 auto 20px;padding:0 28px;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-}
-.category-title{
-  font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;
-  color:var(--espresso);display:flex;align-items:center;gap:10px;
-}
-.category-title em{font-style:italic;color:var(--dusty-rose)}
-.category-count{
-  font-family:'Lato',sans-serif;font-size:0.72rem;color:var(--sand);
-  letter-spacing:0.1em;text-transform:uppercase;font-weight:400;
-}
-.category-actions{display:none;gap:6px}
-body.admin-mode .category-actions{display:flex}
-.cat-btn{
-  background:none;border:1px solid var(--parchment);color:var(--sand);
-  padding:5px 12px;border-radius:2px;cursor:pointer;font-size:0.72rem;
-  letter-spacing:0.08em;text-transform:uppercase;transition:all 0.15s;
-  font-family:'Lato',sans-serif;
-}
-.cat-btn:hover{border-color:var(--mocha);color:var(--mocha)}
-.cat-btn.del:hover{border-color:#c0685a;color:#c0685a}
-.cat-move{cursor:grab;font-size:0.9rem}
+.empty{grid-column:1/-1;text-align:center;padding:40px 24px}
+.empty-icon{font-size:2rem;margin-bottom:12px;opacity:0.35}
+.empty p{font-family:'Playfair Display',serif;font-style:italic;color:var(--mocha);font-size:0.95rem}
 
-/* EMPTY */
-.empty{grid-column:1/-1;text-align:center;padding:60px 24px}
-.empty-icon{font-size:2.5rem;margin-bottom:14px;opacity:0.35}
-.empty p{font-family:'Playfair Display',serif;font-style:italic;color:var(--mocha);font-size:1rem}
-
-/* OVERLAY / MODAL */
+/* MODALS */
 .overlay{
   position:fixed;inset:0;background:rgba(44,31,20,0.55);
   backdrop-filter:blur(3px);z-index:100;
@@ -255,7 +256,6 @@ body.admin-mode .category-actions{display:flex}
   font-size:1.2rem;color:var(--sand);cursor:pointer;padding:4px;
 }
 .close-modal:hover{color:var(--espresso)}
-
 .field{margin-bottom:18px}
 .field label{
   display:block;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;
@@ -289,7 +289,6 @@ body.admin-mode .category-actions{display:flex}
 }
 .img-preview.show{display:block}
 
-/* ADMIN BADGE */
 .admin-badge{
   position:fixed;bottom:24px;right:24px;background:var(--espresso);color:var(--cream);
   border:none;padding:10px 18px;font-family:'Lato',sans-serif;font-size:0.7rem;
@@ -315,20 +314,15 @@ body.admin-mode .admin-badge{background:var(--dusty-rose);opacity:1}
   <div class="header-edit-hint" onclick="openHeaderModal()">✎ Edit header text</div>
 </header>
 
-<!-- Category Tabs -->
 <div class="tabs-wrap">
-  <div class="tabs" id="tabs">
-    <button class="tab active" onclick="filterCategory('all')">All</button>
-  </div>
+  <div class="tabs" id="tabs"></div>
 </div>
 
-<!-- Admin Toolbar -->
 <div class="admin-toolbar">
   <button class="add-btn" onclick="openItemModal()">+ Add Item</button>
-  <span class="reorder-hint">⠿ Drag cards to reorder</span>
+  <span class="reorder-hint">⠿ Drag category headers or cards to reorder</span>
 </div>
 
-<!-- Content -->
 <div id="content">
   <div class="loader">
     <div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div>
@@ -340,10 +334,7 @@ body.admin-mode .admin-badge{background:var(--dusty-rose);opacity:1}
   <div class="modal">
     <button class="close-modal" onclick="closeItemModal()">✕</button>
     <div class="modal-title" id="itemModalTitle">Add a <em>wish</em></div>
-    <div class="field">
-      <label>Category *</label>
-      <select id="f-category"><option value="">Select category…</option></select>
-    </div>
+    <div class="field"><label>Category *</label><select id="f-category"><option value="">Select category…</option></select></div>
     <div class="field"><label>Item Name *</label><input type="text" id="f-name" placeholder="e.g. Crocs Sandals"/></div>
     <div class="field-row">
       <div class="field"><label>Price</label><input type="text" id="f-price" placeholder="e.g. ₦15,000"/></div>
@@ -362,8 +353,8 @@ body.admin-mode .admin-badge{background:var(--dusty-rose);opacity:1}
       <input type="text" id="f-img" placeholder="Paste image link" oninput="previewImg()"/>
       <img id="img-preview" class="img-preview" src="" alt="preview"/>
     </div>
-    <div class="field"><label>Vendor / Shop</label><input type="text" id="f-vendor" placeholder="e.g. Shoprite"/></div>
-    <div class="field"><label>Vendor Contact or Link</label><input type="text" id="f-contact" placeholder="e.g. shoprite.com or @handle"/></div>
+    <div class="field"><label>Vendor / Shop</label><input type="text" id="f-vendor" placeholder="e.g. Jumia"/></div>
+    <div class="field"><label>Vendor Contact or Link</label><input type="text" id="f-contact" placeholder="e.g. jumia.com.ng or @handle"/></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeItemModal()">Cancel</button>
       <button class="btn-save" id="itemSaveBtn" onclick="saveItem()">Save to List</button>
@@ -413,22 +404,23 @@ let items=[];
 let activeCategory='all';
 let editingItemId=null;
 let editingCatName=null;
-let dragSrcId=null;
 
-// ── SEED DATA ──
+// ── SEED DATA — Moneyyy is position 1 (right after Power Alternatives at 0) ──
 const SEED_CATEGORIES=[
   {name:'Power Alternatives',order:0},
-  {name:'Content Creation Tools',order:1},
-  {name:'Footwear',order:2},
-  {name:'Subscriptions',order:3},
-  {name:'Accessories',order:4},
-  {name:'Home Items',order:5},
-  {name:'Food',order:6},
-  {name:'Moneyyy',order:7},
+  {name:'Moneyyy',order:1},
+  {name:'Content Creation Tools',order:2},
+  {name:'Footwear',order:3},
+  {name:'Subscriptions',order:4},
+  {name:'Accessories',order:5},
+  {name:'Home Items',order:6},
+  {name:'Food',order:7},
 ];
 const SEED_ITEMS=[
   {name:'Itel Solar Power Tank Inverter',category:'Power Alternatives',sort_order:0},
   {name:'Itel Power Go 100,000 mAh Power Bank',category:'Power Alternatives',sort_order:1},
+  {name:'Cash',category:'Moneyyy',sort_order:0},
+  {name:'Crypto',category:'Moneyyy',sort_order:1},
   {name:'3-in-1 Tripod Stand',category:'Content Creation Tools',sort_order:0},
   {name:'Wireless Mic',category:'Content Creation Tools',sort_order:1},
   {name:'LED 600 Video Light',category:'Content Creation Tools',sort_order:2},
@@ -456,8 +448,6 @@ const SEED_ITEMS=[
   {name:"Cake Parfait from Esi's Cakes",category:'Food',sort_order:0},
   {name:"Small Chops from Esi's Cakes",category:'Food',sort_order:1},
   {name:'Food Platter',category:'Food',sort_order:2},
-  {name:'Cash',category:'Moneyyy',sort_order:0},
-  {name:'Crypto',category:'Moneyyy',sort_order:1},
 ];
 
 // ── HEADER ──
@@ -473,32 +463,29 @@ function applyHeader(){
   document.getElementById('headerSub').textContent=headerData.sub;
 }
 
-// ── TOAST ──
 function showToast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
+  setTimeout(()=>t.classList.remove('show'),2600);
 }
 
-// ── UTILS ──
 function esc(s){
   if(!s)return'';
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 function formatContact(c){
-  if(!c)return'';
-  const s=esc(c);
+  if(!c)return'';const s=esc(c);
   if(c.startsWith('http')||c.startsWith('www')){const u=c.startsWith('http')?c:'https://'+c;return`<a href="${u}" target="_blank" rel="noopener">${s}</a>`}
   if(c.includes('@')&&!c.startsWith('@'))return`<a href="mailto:${c}">${s}</a>`;
   return s;
 }
 
-// ── CATEGORIES derived from items ──
 function getCategories(){
   const map={};
   items.forEach(it=>{
     const cat=it.category||'Uncategorised';
-    if(!map[cat])map[cat]={name:cat,order:it.category_order||0};
+    if(!map[cat]||it.category_order<map[cat].order)
+      map[cat]={name:cat,order:it.category_order??99};
   });
   return Object.values(map).sort((a,b)=>a.order-b.order);
 }
@@ -515,14 +502,8 @@ async function loadItems(){
     return;
   }
   items=data||[];
-
-  // Seed if empty
-  if(items.length===0){
-    await seedData();
-    return;
-  }
-  renderTabs();
-  renderContent();
+  if(items.length===0){await seedData();return;}
+  renderTabs();renderContent();
 }
 
 async function seedData(){
@@ -532,7 +513,7 @@ async function seedData(){
     return{...it,claimed:false,category_order:cat?cat.order:99,price:'',notes:'',img:'',vendor:'',contact:'',priority:''};
   });
   const{error}=await db.from('items').insert(toInsert);
-  if(error){showToast('Seed error: '+error.message);console.error(error);return;}
+  if(error){showToast('Seed error: '+error.message);return;}
   showToast('Wishlist ready! ✦');
   await loadItems();
 }
@@ -543,86 +524,142 @@ function renderTabs(){
   const tabsEl=document.getElementById('tabs');
   tabsEl.innerHTML=`<button class="tab ${activeCategory==='all'?'active':''}" onclick="filterCategory('all')">All</button>`;
   cats.forEach(c=>{
-    const active=activeCategory===c.name?'active':'';
-    tabsEl.innerHTML+=`<button class="tab ${active}" onclick="filterCategory('${esc(c.name)}')">${esc(c.name)}</button>`;
+    tabsEl.innerHTML+=`<button class="tab ${activeCategory===c.name?'active':''}" onclick="filterCategory('${esc(c.name)}')">${esc(c.name)}</button>`;
   });
   tabsEl.innerHTML+=`<button class="tab-add" onclick="openCatModal()">+ Category</button>`;
   updateCategorySelect();
 }
 
 function filterCategory(cat){
-  activeCategory=cat;
-  renderTabs();
-  renderContent();
+  activeCategory=cat;renderTabs();renderContent();
 }
 
-// ── RENDER CONTENT ──
+// ── RENDER ──
 function renderContent(){
   const content=document.getElementById('content');
   content.innerHTML='';
-
   const cats=activeCategory==='all'?getCategories():[{name:activeCategory,order:0}];
-
-  if(cats.length===0){
-    content.innerHTML='<div class="empty"><div class="empty-icon">✦</div><p>No items yet — add something you love.</p></div>';
+  if(!cats.length){
+    content.innerHTML='<div style="text-align:center;padding:60px"><p style="font-family:Playfair Display,serif;font-style:italic;color:var(--mocha)">No categories yet.</p></div>';
     return;
   }
+  cats.forEach(cat=>content.appendChild(buildSection(cat)));
+}
 
-  cats.forEach(cat=>{
-    const catItems=items.filter(i=>(i.category||'Uncategorised')===cat.name)
-      .sort((a,b)=>a.sort_order-b.sort_order);
+function buildSection(cat){
+  const catItems=items.filter(i=>(i.category||'Uncategorised')===cat.name)
+    .sort((a,b)=>(a.sort_order??0)-(b.sort_order??0));
 
-    const section=document.createElement('div');
-    section.className='category-section';
-    section.dataset.cat=cat.name;
+  const section=document.createElement('div');
+  section.className='category-section';
+  section.dataset.cat=cat.name;
 
-    // category header
-    const words=cat.name.trim().split(' ');
-    const last=words.pop();
-    const titleHtml=(words.length?words.join(' ')+' ':'')+`<em>${last}</em>`;
+  // category title — last word italic
+  const words=cat.name.trim().split(' ');
+  const last=words.pop();
+  const titleHtml=(words.length?words.join(' ')+' ':'')+`<em>${last}</em>`;
 
-    section.innerHTML=`
-      <div class="category-header">
+  section.innerHTML=`
+    <div class="category-header">
+      <div class="category-title-wrap">
+        <span class="cat-drag-handle" title="Drag to reorder category">⠿</span>
         <div class="category-title">
           ${titleHtml}
           <span class="category-count">${catItems.length} item${catItems.length!==1?'s':''}</span>
         </div>
-        <div class="category-actions">
-          <button class="cat-btn" onclick="openCatModal('${esc(cat.name)}')">✎ Rename</button>
-          <button class="cat-btn del" onclick="deleteCat('${esc(cat.name)}')">✕ Delete</button>
-        </div>
-      </div>`;
+      </div>
+      <div class="category-actions">
+        <button class="cat-btn" onclick="openCatModal('${esc(cat.name)}')">✎ Rename</button>
+        <button class="cat-btn del" onclick="deleteCat('${esc(cat.name)}')">✕ Delete</button>
+      </div>
+    </div>`;
 
-    const grid=document.createElement('div');
-    grid.className='grid';
-    grid.dataset.cat=cat.name;
+  const grid=document.createElement('div');
+  grid.className='grid';
+  grid.dataset.cat=cat.name;
 
-    if(catItems.length===0){
-      grid.innerHTML=`<div class="empty" style="padding:30px"><div class="empty-icon" style="font-size:1.5rem">✦</div><p>No items in this category yet.</p></div>`;
-    } else {
-      catItems.forEach((item,i)=>{
-        grid.appendChild(buildCard(item,i));
-      });
-    }
+  if(!catItems.length){
+    grid.innerHTML=`<div class="empty"><div class="empty-icon">✦</div><p>No items yet — add something.</p></div>`;
+  } else {
+    catItems.forEach((item,i)=>grid.appendChild(buildCard(item,i)));
+  }
+  section.appendChild(grid);
 
-    section.appendChild(grid);
-    content.appendChild(section);
-  });
+  // ── category drag (handle only) ──
+  if(isAdmin){
+    const handle=section.querySelector('.cat-drag-handle');
+    handle.addEventListener('mousedown',()=>section.setAttribute('draggable','true'));
+    handle.addEventListener('mouseleave',()=>{});
+    section.addEventListener('dragstart',catDragStart);
+    section.addEventListener('dragover',catDragOver);
+    section.addEventListener('dragleave',catDragLeave);
+    section.addEventListener('drop',catDrop);
+    section.addEventListener('dragend',catDragEnd);
+  }
+  return section;
 }
 
+// ── CATEGORY DRAG ──
+let catDragSrc=null;
+function catDragStart(e){
+  catDragSrc=this;
+  this.classList.add('dragging-cat');
+  e.dataTransfer.effectAllowed='move';
+  e.dataTransfer.setData('text/plain',this.dataset.cat);
+}
+function catDragOver(e){
+  e.preventDefault();
+  if(this===catDragSrc)return;
+  e.dataTransfer.dropEffect='move';
+  this.classList.add('drag-over-cat');
+}
+function catDragLeave(){this.classList.remove('drag-over-cat')}
+async function catDrop(e){
+  e.preventDefault();
+  this.classList.remove('drag-over-cat');
+  if(!catDragSrc||this===catDragSrc)return;
+
+  const srcCat=catDragSrc.dataset.cat;
+  const tgtCat=this.dataset.cat;
+
+  // get current ordered list of categories
+  const cats=getCategories();
+  const srcIdx=cats.findIndex(c=>c.name===srcCat);
+  const tgtIdx=cats.findIndex(c=>c.name===tgtCat);
+  if(srcIdx===-1||tgtIdx===-1)return;
+
+  // reorder array
+  const reordered=[...cats];
+  const[moved]=reordered.splice(srcIdx,1);
+  reordered.splice(tgtIdx,0,moved);
+
+  // assign new order values & update all items in each category
+  const updates=reordered.map((c,i)=>
+    db.from('items').update({category_order:i}).eq('category',c.name)
+  );
+  await Promise.all(updates);
+  showToast('Category order saved ✓');
+  await loadItems();
+}
+function catDragEnd(){
+  if(catDragSrc){catDragSrc.classList.remove('dragging-cat');catDragSrc.setAttribute('draggable','false');}
+  document.querySelectorAll('.drag-over-cat').forEach(el=>el.classList.remove('drag-over-cat'));
+  catDragSrc=null;
+}
+
+// ── ITEM CARD ──
 function buildCard(item,i){
   const card=document.createElement('div');
   card.className='card'+(item.claimed?' claimed':'');
-  card.style.animationDelay=(i*0.06)+'s';
+  card.style.animationDelay=(i*0.055)+'s';
   card.dataset.id=item.id;
-  card.draggable=isAdmin;
 
   if(isAdmin){
-    card.addEventListener('dragstart',onDragStart);
-    card.addEventListener('dragover',onDragOver);
-    card.addEventListener('dragleave',onDragLeave);
-    card.addEventListener('drop',onDrop);
-    card.addEventListener('dragend',onDragEnd);
+    card.addEventListener('dragstart',itemDragStart);
+    card.addEventListener('dragover',itemDragOver);
+    card.addEventListener('dragleave',itemDragLeave);
+    card.addEventListener('drop',itemDrop);
+    card.addEventListener('dragend',itemDragEnd);
   }
 
   const imgHtml=item.img
@@ -639,8 +676,8 @@ function buildCard(item,i){
 
   const adminActions=isAdmin?`
     <div class="card-actions">
-      <button class="action-btn" onclick="editItem(${item.id})" title="Edit">✎</button>
-      <button class="action-btn del" onclick="deleteItem(${item.id})" title="Delete">✕</button>
+      <button class="action-btn" onclick="editItem(${item.id})">✎</button>
+      <button class="action-btn del" onclick="deleteItem(${item.id})">✕</button>
     </div>`:'';
 
   card.innerHTML=`
@@ -663,60 +700,67 @@ function buildCard(item,i){
         ${adminActions}
       </div>
     </div>`;
+
+  // make draggable only via handle
+  if(isAdmin){
+    const h=card.querySelector('.drag-handle');
+    h.addEventListener('mousedown',()=>card.setAttribute('draggable','true'));
+  }
   return card;
 }
 
-// ── DRAG & DROP (item reorder) ──
-function onDragStart(e){
-  dragSrcId=parseInt(this.dataset.id);
-  this.classList.add('dragging');
+// ── ITEM DRAG ──
+let itemDragSrcId=null;
+function itemDragStart(e){
+  itemDragSrcId=parseInt(this.dataset.id);
+  this.classList.add('dragging-item');
   e.dataTransfer.effectAllowed='move';
+  e.stopPropagation();
 }
-function onDragOver(e){
-  e.preventDefault();e.dataTransfer.dropEffect='move';
-  this.classList.add('drag-over');
+function itemDragOver(e){
+  e.preventDefault();e.stopPropagation();
+  e.dataTransfer.dropEffect='move';
+  this.classList.add('drag-over-item');
 }
-function onDragLeave(){this.classList.remove('drag-over')}
-async function onDrop(e){
-  e.preventDefault();this.classList.remove('drag-over');
+function itemDragLeave(){this.classList.remove('drag-over-item')}
+async function itemDrop(e){
+  e.preventDefault();e.stopPropagation();
+  this.classList.remove('drag-over-item');
   const targetId=parseInt(this.dataset.id);
-  if(dragSrcId===targetId)return;
-
-  const src=items.find(i=>i.id===dragSrcId);
+  if(itemDragSrcId===targetId)return;
+  const src=items.find(i=>i.id===itemDragSrcId);
   const tgt=items.find(i=>i.id===targetId);
   if(!src||!tgt)return;
-
-  // swap sort_order
   const tmp=src.sort_order;
   src.sort_order=tgt.sort_order;
   tgt.sort_order=tmp;
-
-  await db.from('items').update({sort_order:src.sort_order}).eq('id',src.id);
-  await db.from('items').update({sort_order:tgt.sort_order}).eq('id',tgt.id);
-  renderContent();
-  showToast('Order updated ✓');
+  await Promise.all([
+    db.from('items').update({sort_order:src.sort_order}).eq('id',src.id),
+    db.from('items').update({sort_order:tgt.sort_order}).eq('id',tgt.id)
+  ]);
+  renderContent();showToast('Order updated ✓');
 }
-function onDragEnd(){this.classList.remove('dragging')}
+function itemDragEnd(){
+  this.classList.remove('dragging-item');
+  this.setAttribute('draggable','false');
+  document.querySelectorAll('.drag-over-item').forEach(el=>el.classList.remove('drag-over-item'));
+}
 
 // ── CLAIM ──
 async function toggleClaim(id,val){
   const{error}=await db.from('items').update({claimed:val}).eq('id',id);
   if(error){showToast('Could not update');return}
-  const item=items.find(i=>i.id===id);
-  if(item)item.claimed=val;
-  renderContent();
-  showToast(val?'Marked as claimed ✓':'Unclaimed');
+  const item=items.find(i=>i.id===id);if(item)item.claimed=val;
+  renderContent();showToast(val?'Marked as claimed ✓':'Unclaimed');
 }
 
 // ── ITEM MODAL ──
 function updateCategorySelect(){
-  const sel=document.getElementById('f-category');
-  if(!sel)return;
+  const sel=document.getElementById('f-category');if(!sel)return;
   const cats=getCategories();
   sel.innerHTML='<option value="">Select category…</option>';
   cats.forEach(c=>sel.innerHTML+=`<option value="${esc(c.name)}">${esc(c.name)}</option>`);
 }
-
 function openItemModal(id=null){
   editingItemId=id;clearItemForm();
   if(id){
@@ -752,12 +796,10 @@ async function saveItem(){
   const name=document.getElementById('f-name').value.trim();
   const category=document.getElementById('f-category').value;
   if(!name){document.getElementById('f-name').focus();return}
-  if(!category){document.getElementById('f-category').focus();showToast('Please select a category');return}
-
+  if(!category){showToast('Please select a category');return}
   const btn=document.getElementById('itemSaveBtn');
   btn.disabled=true;btn.textContent='Saving…';
-
-  const catOrder=getCategories().find(c=>c.name===category)?.order||0;
+  const catOrder=getCategories().find(c=>c.name===category)?.order??0;
   const data={
     name,category,category_order:catOrder,
     price:document.getElementById('f-price').value.trim(),
@@ -767,15 +809,13 @@ async function saveItem(){
     vendor:document.getElementById('f-vendor').value.trim(),
     contact:document.getElementById('f-contact').value.trim(),
   };
-
   let error;
   if(editingItemId){
     ({error}=await db.from('items').update(data).eq('id',editingItemId));
   } else {
-    const maxOrder=Math.max(0,...items.filter(i=>i.category===category).map(i=>i.sort_order||0));
+    const maxOrder=Math.max(0,...items.filter(i=>i.category===category).map(i=>i.sort_order??0));
     ({error}=await db.from('items').insert([{...data,claimed:false,sort_order:maxOrder+1}]));
   }
-
   btn.disabled=false;btn.textContent='Save to List';
   if(error){showToast('Error saving');console.error(error);return}
   showToast(editingItemId?'Item updated ✓':'Added ✓');
@@ -790,32 +830,26 @@ async function deleteItem(id){
 }
 
 // ── CATEGORY MODAL ──
-function openCatModal(existingName=null){
-  editingCatName=existingName;
-  document.getElementById('c-name').value=existingName||'';
-  document.getElementById('catModalTitle').innerHTML=existingName?'Rename <em>Category</em>':'Add <em>Category</em>';
+function openCatModal(existing=null){
+  editingCatName=existing;
+  document.getElementById('c-name').value=existing||'';
+  document.getElementById('catModalTitle').innerHTML=existing?'Rename <em>Category</em>':'Add <em>Category</em>';
   document.getElementById('catOverlay').classList.add('open');
 }
 function closeCatModal(){document.getElementById('catOverlay').classList.remove('open');editingCatName=null}
 async function saveCat(){
-  const name=document.getElementById('c-name').value.trim();
-  if(!name)return;
-  const btn=document.getElementById('catSaveBtn');
-  btn.disabled=true;btn.textContent='Saving…';
-
+  const name=document.getElementById('c-name').value.trim();if(!name)return;
+  const btn=document.getElementById('catSaveBtn');btn.disabled=true;btn.textContent='Saving…';
   if(editingCatName){
-    // rename: update all items in that category
     const{error}=await db.from('items').update({category:name}).eq('category',editingCatName);
     btn.disabled=false;btn.textContent='Save';
     if(error){showToast('Error renaming');return}
     if(activeCategory===editingCatName)activeCategory=name;
     showToast('Category renamed ✓');
   } else {
-    // new category: insert a placeholder item so category exists
     const cats=getCategories();
-    const newOrder=cats.length;
     const{error}=await db.from('items').insert([{
-      name:'(New item)',category:name,category_order:newOrder,
+      name:'(New item)',category:name,category_order:cats.length,
       sort_order:0,claimed:false,price:'',notes:'',img:'',vendor:'',contact:'',priority:''
     }]);
     btn.disabled=false;btn.textContent='Save';
@@ -837,11 +871,10 @@ async function deleteCat(catName){
 function previewImg(){
   const url=document.getElementById('f-img').value.trim();
   const p=document.getElementById('img-preview');
-  p.className=url?'img-preview show':'img-preview';
-  if(url)p.src=url;
+  p.className=url?'img-preview show':'img-preview';if(url)p.src=url;
 }
 
-// ── HEADER MODAL ──
+// ── HEADER ──
 function openHeaderModal(){
   document.getElementById('h-eyebrow').value=headerData.eyebrow;
   document.getElementById('h-title').value=headerData.title;
@@ -874,7 +907,6 @@ function toggleAdmin(){
   } else if(pin!==null){showToast('Incorrect PIN')}
 }
 
-// close overlays on outside click
 ['itemOverlay','catOverlay','headerOverlay'].forEach(id=>{
   document.getElementById(id).addEventListener('click',function(e){
     if(e.target===this){
