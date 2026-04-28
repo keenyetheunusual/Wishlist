@@ -369,10 +369,12 @@ body.admin-mode .admin-badge{background:var(--dusty-rose);opacity:1}
 <!-- PROFILE -->
 <div class="profile-section">
   <div class="profile-photo-wrap">
-    <img src="https://i.ibb.co/8gKrq8Zq" alt="Keenye The Unusual"
-      onerror="this.style.display='none'"/>
+    <img id="profilePhoto" src="" alt="Keenye The Unusual"
+      onerror="this.style.display='none';document.getElementById('profilePlaceholder').style.display='flex'" style="display:none"/>
+    <div class="profile-photo-placeholder" id="profilePlaceholder">✦</div>
   </div>
   <div class="profile-name">Keenye <em>The Unusual</em></div>
+  <div class="header-edit-hint" onclick="openProfileModal()">✎ Edit profile photo</div>
   <div class="social-buttons">
     <!-- WhatsApp -->
     <a class="social-btn btn-whatsapp" href="https://wa.me/2349122199472" target="_blank" rel="noopener">
@@ -465,6 +467,27 @@ body.admin-mode .admin-badge{background:var(--dusty-rose);opacity:1}
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeCatModal()">Cancel</button>
       <button class="btn-save" id="catSaveBtn" onclick="saveCat()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Photo Modal -->
+<div class="overlay" id="profileOverlay">
+  <div class="modal">
+    <button class="close-modal" onclick="closeProfileModal()">✕</button>
+    <div class="modal-title">Edit <em>Profile Photo</em></div>
+    <div class="field">
+      <label>Photo URL</label>
+      <input type="text" id="p-img" placeholder="Paste your image link here" oninput="previewProfileImg()"/>
+      <img id="p-img-preview" class="img-preview" src="" alt="preview" style="border-radius:50%;height:110px;width:110px;object-fit:cover;margin:10px auto;display:none"/>
+    </div>
+    <p style="font-size:0.75rem;color:var(--sand);line-height:1.6;margin-top:-8px">
+      Paste any direct image link. Works with Google Drive, Dropbox, or any link ending in .jpg/.png.
+      <br/>For Google Drive: share the file → copy link → replace <em>/view</em> with <em>/uc?export=view</em>
+    </p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeProfileModal()">Cancel</button>
+      <button class="btn-save" onclick="saveProfilePhoto()">Save Photo</button>
     </div>
   </div>
 </div>
@@ -571,6 +594,38 @@ function updateCountdown(){
 }
 setInterval(updateCountdown,1000);
 updateCountdown();
+
+// ── PROFILE PHOTO ──
+function loadProfilePhoto(){
+  const url=localStorage.getItem('wishlist_profile_photo')||'';
+  const img=document.getElementById('profilePhoto');
+  const placeholder=document.getElementById('profilePlaceholder');
+  if(url){
+    img.src=url;img.style.display='block';placeholder.style.display='none';
+  }
+}
+function openProfileModal(){
+  const url=localStorage.getItem('wishlist_profile_photo')||'';
+  document.getElementById('p-img').value=url;
+  const preview=document.getElementById('p-img-preview');
+  if(url){preview.src=url;preview.style.display='block';}
+  else{preview.style.display='none';}
+  document.getElementById('profileOverlay').classList.add('open');
+}
+function closeProfileModal(){document.getElementById('profileOverlay').classList.remove('open')}
+function previewProfileImg(){
+  const url=document.getElementById('p-img').value.trim();
+  const preview=document.getElementById('p-img-preview');
+  if(url){preview.src=url;preview.style.display='block';}
+  else{preview.style.display='none';}
+}
+function saveProfilePhoto(){
+  const url=document.getElementById('p-img').value.trim();
+  localStorage.setItem('wishlist_profile_photo',url);
+  loadProfilePhoto();
+  closeProfileModal();
+  showToast('Profile photo updated ✓');
+}
 
 // ── HEADER ──
 let headerData=JSON.parse(localStorage.getItem('wishlist_header')||'null')||
@@ -839,16 +894,20 @@ function toggleAdmin(){
   else if(pin!==null){showToast('Incorrect PIN')}
 }
 
-['itemOverlay','catOverlay','headerOverlay'].forEach(id=>{
+['itemOverlay','catOverlay','headerOverlay','profileOverlay'].forEach(id=>{
   document.getElementById(id).addEventListener('click',function(e){
-    if(e.target===this){if(id==='itemOverlay')closeItemModal();else if(id==='catOverlay')closeCatModal();else closeHeaderModal();}
+    if(e.target===this){
+      if(id==='itemOverlay')closeItemModal();
+      else if(id==='catOverlay')closeCatModal();
+      else if(id==='profileOverlay')closeProfileModal();
+      else closeHeaderModal();
+    }
   });
 });
 
 applyHeader();
+loadProfilePhoto();
 loadItems();
 </script>
 </body>
 </html>
-
-
