@@ -596,14 +596,7 @@ setInterval(updateCountdown,1000);
 updateCountdown();
 
 // ── PROFILE PHOTO ──
-function loadProfilePhoto(){
-  const url=localStorage.getItem('wishlist_profile_photo')||'';
-  const img=document.getElementById('profilePhoto');
-  const placeholder=document.getElementById('profilePlaceholder');
-  if(url){
-    img.src=url;img.style.display='block';placeholder.style.display='none';
-  }
-}
+
 function openProfileModal(){
   const url=localStorage.getItem('wishlist_profile_photo')||'';
   document.getElementById('p-img').value=url;
@@ -619,17 +612,67 @@ function previewProfileImg(){
   if(url){preview.src=url;preview.style.display='block';}
   else{preview.style.display='none';}
 }
-function saveProfilePhoto(){
+// ── SETTINGS (Supabase) ──
+async function getSetting(key){
+  const{data}=await db.from('settings').select('value').eq('key',key).single();
+  return data?data.value:null;
+}
+async function setSetting(key,value){
+  const{data}=await db.from('settings').select('id').eq('key',key).single();
+  if(data){await db.from('settings').update({value}).eq('key',key);}
+  else{await db.from('settings').insert([{key,value}]);}
+}
+
+// ── PROFILE PHOTO ──
+async function loadProfilePhoto(){
+  const url=await getSetting('profile_photo');
+  applyProfilePhoto(url||'');
+}
+function applyProfilePhoto(url){
+  const img=document.getElementById('profilePhoto');
+  const placeholder=document.getElementById('profilePlaceholder');
+  if(url){
+    img.src=url;img.style.display='block';placeholder.style.display='none';
+  } else {
+    img.style.display='none';placeholder.style.display='flex';
+  }
+}
+function openProfileModal(){
+  const img=document.getElementById('profilePhoto');
+  document.getElementById('p-img').value=img.src&&img.style.display!=='none'?img.src:'';
+  const preview=document.getElementById('p-img-preview');
+  if(img.src&&img.style.display!=='none'){preview.src=img.src;preview.style.display='block';}
+  else{preview.style.display='none';}
+  document.getElementById('profileOverlay').classList.add('open');
+}
+function closeProfileModal(){document.getElementById('profileOverlay').classList.remove('open')}
+function previewProfileImg(){
   const url=document.getElementById('p-img').value.trim();
-  localStorage.setItem('wishlist_profile_photo',url);
-  loadProfilePhoto();
+  const preview=document.getElementById('p-img-preview');
+  if(url){preview.src=url;preview.style.display='block';}
+  else{preview.style.display='none';}
+}
+async function saveProfilePhoto(){
+  const url=document.getElementById('p-img').value.trim();
+  await setSetting('profile_photo',url);
+  applyProfilePhoto(url);
   closeProfileModal();
-  showToast('Profile photo updated ✓');
+  showToast('Profile photo updated ✓ — visible on all devices');
 }
 
 // ── HEADER ──
-let headerData=JSON.parse(localStorage.getItem('wishlist_header')||'null')||
-  {eyebrow:'a curated collection of',title:'My Wishlist',sub:'Things I love & hope to have'};
+let headerData={eyebrow:'a curated collection of',title:'My Wishlist',sub:'Things I love & hope to have'};
+async function loadHeaderSettings(){
+  const[eyebrow,title,sub]=await Promise.all([
+    getSetting('header_eyebrow'),
+    getSetting('header_title'),
+    getSetting('header_sub'),
+  ]);
+  if(eyebrow)headerData.eyebrow=eyebrow;
+  if(title)headerData.title=title;
+  if(sub)headerData.sub=sub;
+  applyHeader();
+}
 function applyHeader(){
   document.getElementById('headerEyebrow').textContent=headerData.eyebrow;
   document.title=headerData.title+' ✦';
@@ -881,9 +924,18 @@ function openHeaderModal(){
   document.getElementById('headerOverlay').classList.add('open');
 }
 function closeHeaderModal(){document.getElementById('headerOverlay').classList.remove('open')}
-function saveHeader(){
-  headerData={eyebrow:document.getElementById('h-eyebrow').value.trim()||headerData.eyebrow,title:document.getElementById('h-title').value.trim()||headerData.title,sub:document.getElementById('h-sub').value.trim()||headerData.sub};
-  localStorage.setItem('wishlist_header',JSON.stringify(headerData));applyHeader();closeHeaderModal();showToast('Header updated ✓');
+async function saveHeader(){
+  headerData={
+    eyebrow:document.getElementById('h-eyebrow').value.trim()||headerData.eyebrow,
+    title:document.getElementById('h-title').value.trim()||headerData.title,
+    sub:document.getElementById('h-sub').value.trim()||headerData.sub,
+  };
+  await Promise.all([
+    setSetting('header_eyebrow',headerData.eyebrow),
+    setSetting('header_title',headerData.title),
+    setSetting('header_sub',headerData.sub),
+  ]);
+  applyHeader();closeHeaderModal();showToast('Header updated ✓ — visible on all devices');
 }
 
 // ── ADMIN ──
@@ -906,6 +958,7 @@ function toggleAdmin(){
 });
 
 applyHeader();
+loadHeaderSettings();
 loadProfilePhoto();
 loadItems();
 </script>
